@@ -24,7 +24,7 @@ class Search::Where::RangeService < Search::ApplicationService
     index_header = "NO".ljust(5)
     id_header = "ID".ljust(5)
     name_header = "NAME".ljust(40)
-    orders_count_header = "ORDERS COUNT".ljust(15)
+    orders_count_header = "ORDERS COUNT".center(15, " ")
 
     puts "\n|#{index_header}|#{id_header}|#{name_header}|#{orders_count_header}|"
 
