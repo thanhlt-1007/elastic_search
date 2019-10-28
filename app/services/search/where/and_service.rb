@@ -1,26 +1,20 @@
-class Search::Where::ExistsService < Search::ApplicationService
-  attr_reader :store_exists
+class Search::Where::AndService < Search::ApplicationService
+  attr_reader :store_id, :orders_count
 
   def initialize key_word, options = {}
     super
-    @store_exists = options[:store_exists]
+    @store_id = options[:store_id]
+    @orders_count = options[:orders_count]
   end
 
   private
 
   def where
-    store_exists ? where_exists : where_not_exists
-  end
-
-  def where_exists
     {
-      store_id: {exists: true}
-    }
-  end
-
-  def where_not_exists
-    {
-      store_id: nil
+      _and: [
+        {store_id: store_id},
+        {orders_count: orders_count}
+      ]
     }
   end
 
@@ -34,20 +28,22 @@ class Search::Where::ExistsService < Search::ApplicationService
     id_header = "ID".ljust(5)
     name_header = "NAME".ljust(40)
     store_id_header = "STORE ID".center(10, " ")
+    orders_count_header = "ORDERS COUNT".center(15, " ")
 
-    puts "\n|#{index_header}|#{id_header}|#{name_header}|#{store_id_header}|"
+    puts "\n|#{index_header}|#{id_header}|#{name_header}|#{store_id_header}|#{orders_count_header}|"
 
-    puts "".center(65, "-")
+    puts "".center(81, "-")
 
     products.each.with_index(1) do |product, index|
       index = index.to_s.ljust(5)
       id = product.id.to_s.ljust(5)
       name = product.name.ljust(40)
       store_id = product.store_id.to_s.center(10, " ")
+      orders_count = product.orders_count.to_s.center(15, " ")
 
-      puts "|#{index}|#{id}|#{name}|#{store_id}|"
+      puts "|#{index}|#{id}|#{name}|#{store_id}|#{orders_count}|"
     end
 
-    puts "END".center(65, "-")
+    puts "END".center(81, "-")
   end
 end
