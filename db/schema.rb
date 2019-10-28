@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_125638) do
+ActiveRecord::Schema.define(version: 2019_10_28_094258) do
 
   create_table "order_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "order_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2019_10_25_125638) do
     t.boolean "in_stock", default: true
     t.integer "orders_count", default: 0
     t.bigint "store_id"
+    t.text "description"
     t.index ["store_id"], name: "index_products_on_store_id"
   end
 
