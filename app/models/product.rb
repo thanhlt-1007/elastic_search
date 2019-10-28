@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  belongs_to :store
+  belongs_to :store, optional: true
   has_many :order_details
   has_many :orders, through: :order_details
 
